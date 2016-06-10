@@ -76,3 +76,43 @@ var getMeMovie = function(movieName){
 
 }
 
+var doWhatItSays = function(){
+	fs.readFile("random.txt", "utf8", function(error, data) {
+		
+		
+		var dataArr = data.split(',')
+
+		if (dataArr.length == 2){
+			pick(dataArr[0], dataArr[1]);
+		}else if (dataArr.length == 1){
+			pick(dataArr[0]);
+		}
+		
+	});
+}
+
+var pick = function(caseData, functionData){
+	switch(caseData) {
+	    case 'my-tweets':
+	        getMyTweets();
+	        break;
+	    case 'spotify-this-song':
+	        getMeSpotify(functionData);
+	        break;
+	    case 'movie-this':
+	    	getMeMovie(functionData);
+	    	break;
+	    case 'do-what-it-says':
+	    	doWhatItSays();
+	    	break;
+	    default:
+	        console.log('LIRI doesn\'t know that');
+	}
+}
+
+
+var runThis = function(argOne, argTwo){
+	pick(argOne, argTwo);
+};
+
+runThis(process.argv[2], process.argv[3]);
